@@ -46,6 +46,15 @@ module.exports.createItem = async (req, res, next) => {
     if (validate.fails()) {
       return res.status(400).json({ message: validate.errors });
     }
+    const isCategoryValid = await Model.Category.findOne({
+      where: {
+        id: data.category_id,
+        is_deleted: 0,
+      },
+    });
+    if (!isCategoryValid) {
+      return res.status(400).json({ message: "Category not found" });
+    }
     const blogSave = await Model.Blogs.create(data);
     return res.status(200).json({ data: blogSave, message: "Blog Created" });
   } catch (e) {
