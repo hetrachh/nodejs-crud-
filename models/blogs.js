@@ -14,22 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   Blogs.init(
     {
       title: DataTypes.STRING,
-      published_date: {
-        type: DataTypes.VIRTUAL,
-        get() {
-          return this.getDataValue("created_at");
-        },
-      },
-      modify_date: {
-        type: DataTypes.VIRTUAL,
-        get() {
-          return this.getDataValue("updated_at");
-        },
-      },
       description: DataTypes.TEXT,
       status: DataTypes.BOOLEAN,
       category_id: DataTypes.INTEGER,
       author: DataTypes.STRING,
+      is_deleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

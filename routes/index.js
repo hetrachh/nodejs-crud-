@@ -17,11 +17,11 @@ module.exports = (app) => {
   app.post("/api/blog", async function (req, res, next) {
     return await BlogController.createItem(req, res, next);
   });
-  app.get("/api/blog/:id", async function (req, res, next) {
-    return await BlogController.getItem(req, res, next);
-  });
   app.put("/api/blog/:id", async function (req, res, next) {
     return await BlogController.updateItem(req, res, next);
+  });
+  app.get("/api/blog/:id", async function (req, res, next) {
+    return await BlogController.getItem(req, res, next);
   });
   app.delete("/api/blog/:id", async function (req, res, next) {
     return await BlogController.deleteItem(req, res, next);
