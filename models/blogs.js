@@ -10,6 +10,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    validationRequest = async (action) => {
+      let rules = {};
+      switch (action) {
+        case "create":
+          rules = {
+            title: "required",
+            description: "required",
+            author: "required",
+            category_id: "required",
+          };
+          break;
+        default:
+          rules = {};
+      }
+      return rules;
+    };
   }
   Blogs.init(
     {

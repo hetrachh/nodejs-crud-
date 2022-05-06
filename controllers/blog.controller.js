@@ -1,5 +1,6 @@
 const Model = require("../models/index");
 const Utility = require("../util/common");
+const Validator = require("validatorjs");
 const Op = Model.Sequelize.Op;
 
 module.exports.listItem = async (req, res, next) => {
@@ -25,15 +26,17 @@ module.exports.listItem = async (req, res, next) => {
 module.exports.createItem = async (req, res, next) => {
   try {
     const data = req.body;
-    //TODO: validation
-    // Title
-    //   Description
     //   publised_date
     //   modify_date
-    //   status (Publish, Unpublish)
     //   category
     data["category_id"] = 1;
-    const blogSave = await Model.Blogs.create(data);
+    const BlogModel = new Model.Blogs();
+    const validationRules = await BlogModel.validationRequest("create");
+    const validate = new Validator(data, validationRules);
+    if (validate.fails()) {
+      return res.status(400).json({ message: validate.errors });
+    }
+    const blogSave = await BlogModel.create(data);
     return res.status(200).json({ data: blogSave, message: "Blog Created" });
   } catch (e) {
     return res.status(500).json({ message: e.message });

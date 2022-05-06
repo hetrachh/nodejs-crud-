@@ -4,7 +4,7 @@ const validateJWT = require("./handler/validateJWT");
 const app = express();
 
 app.use(express.json());
-app.use(validateJWT());
+// app.use(validateJWT());
 
 require("./routes")(app);
 app.use(handler);

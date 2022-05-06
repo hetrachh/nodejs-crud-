@@ -1,6 +1,7 @@
 const Model = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Validator = require("validatorjs");
 require("dotenv/config");
 
 module.exports.login = async (req, res, next) => {
@@ -10,18 +11,24 @@ module.exports.login = async (req, res, next) => {
 module.exports.signup = async (req, res, next) => {
   try {
     let data = req.body;
-    //TODO: Validation need to be add
-    // {
-    //   first_name: "Het",
-    //   last_name: "Rachh",
-    //   email: "hetrachh20@gmail.com",
-    //   password: bcrypt.hashSync("admin123", 10),
-    //   date_of_birth: "1997-04-17",
-    //   role: 0,
-    // }
+    const UserModel = new Model.User();
+    const validationRules = await UserModel.validationRequest("create");
+    const validate = new Validator(data, validationRules);
+    if (validate.fails()) {
+      return res.status(400).json({ message: validate.errors });
+    }
+    const isRegisterd = await Model.User.findOne({
+      where: {
+        email: data.email,
+        is_deleted: 0,
+      },
+    });
+    if (isRegisterd) {
+      return res.status(400).json({ message: "You are already registred" });
+    }
     data["password"] = bcrypt.hashSync(data.password, 10);
     data["role"] = 1;
-    const userSave = await Model.User.create(data);
+    const userSave = await UserModel.create(data);
     return res
       .status(200)
       .json({ data: userSave, message: "User Created SuccessFully" });
