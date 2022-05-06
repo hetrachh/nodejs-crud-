@@ -1,5 +1,7 @@
 const AuthController = require("../controllers/auth.controller");
 const BlogController = require("../controllers/blog.controller");
+const JWTverify = require("../handler/JWTVerify");
+const isAdmin = require("../handler/isAdmin");
 
 module.exports = (app) => {
   //Authentication Routes
@@ -11,19 +13,27 @@ module.exports = (app) => {
   });
 
   //Blog Related Routes
-  app.get("/api/blog", async function (req, res, next) {
+  app.get("/api/blog", [JWTverify], async function (req, res, next) {
     return await BlogController.listItem(req, res, next);
   });
-  app.post("/api/blog", async function (req, res, next) {
+  app.post("/api/blog", [JWTverify, isAdmin], async function (req, res, next) {
     return await BlogController.createItem(req, res, next);
   });
-  app.put("/api/blog/:id", async function (req, res, next) {
-    return await BlogController.updateItem(req, res, next);
-  });
-  app.get("/api/blog/:id", async function (req, res, next) {
+  app.put(
+    "/api/blog/:id",
+    [JWTverify, isAdmin],
+    async function (req, res, next) {
+      return await BlogController.updateItem(req, res, next);
+    }
+  );
+  app.get("/api/blog/:id", [JWTverify], async function (req, res, next) {
     return await BlogController.getItem(req, res, next);
   });
-  app.delete("/api/blog/:id", async function (req, res, next) {
-    return await BlogController.deleteItem(req, res, next);
-  });
+  app.delete(
+    "/api/blog/:id",
+    [JWTverify, isAdmin],
+    async function (req, res, next) {
+      return await BlogController.deleteItem(req, res, next);
+    }
+  );
 };
