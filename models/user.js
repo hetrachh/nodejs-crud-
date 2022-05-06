@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             last_name: "required",
             email: "required|email",
             password: "required|min:6",
-            date_of_birth: "required",
+            date_of_birth: "required|date",
           };
           break;
         default:

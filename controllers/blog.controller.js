@@ -37,9 +37,6 @@ module.exports.listItem = async (req, res, next) => {
 module.exports.createItem = async (req, res, next) => {
   try {
     const data = req.body;
-    //   publised_date
-    //   modify_date
-    //   category
     const BlogModel = new Model.Blogs();
     const validationRules = await BlogModel.validationRequest("create");
     const validate = new Validator(data, validationRules);
