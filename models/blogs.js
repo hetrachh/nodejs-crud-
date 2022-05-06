@@ -36,6 +36,12 @@ module.exports = (sequelize, DataTypes) => {
       category_id: DataTypes.INTEGER,
       author: DataTypes.STRING,
       is_deleted: DataTypes.BOOLEAN,
+      // published_date: {
+      //   type: DataTypes.VIRTUAL,
+      //   get() {
+      //     return this.created_at;
+      //   },
+      // },
     },
     {
       sequelize,

@@ -36,7 +36,7 @@ module.exports.createItem = async (req, res, next) => {
     if (validate.fails()) {
       return res.status(400).json({ message: validate.errors });
     }
-    const blogSave = await BlogModel.create(data);
+    const blogSave = await Model.Blogs.create(data);
     return res.status(200).json({ data: blogSave, message: "Blog Created" });
   } catch (e) {
     return res.status(500).json({ message: e.message });

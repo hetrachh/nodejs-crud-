@@ -28,7 +28,7 @@ module.exports.signup = async (req, res, next) => {
     }
     data["password"] = bcrypt.hashSync(data.password, 10);
     data["role"] = 1;
-    const userSave = await UserModel.create(data);
+    const userSave = await Model.User.create(data);
     return res
       .status(200)
       .json({ data: userSave, message: "User Created SuccessFully" });
