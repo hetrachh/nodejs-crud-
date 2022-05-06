@@ -12,6 +12,17 @@ module.exports.listItem = async (req, res, next) => {
       where: {
         is_deleted: 0,
       },
+      include: [
+        {
+          model: Model.Category,
+          include: [
+            {
+              model: Model.Category,
+              as: "parent",
+            },
+          ],
+        },
+      ],
       order: [[sortKey ? sortKey : "id", sortBy ? sortBy : "DESC"]],
       limit,
       offset,
@@ -29,7 +40,6 @@ module.exports.createItem = async (req, res, next) => {
     //   publised_date
     //   modify_date
     //   category
-    data["category_id"] = 1;
     const BlogModel = new Model.Blogs();
     const validationRules = await BlogModel.validationRequest("create");
     const validate = new Validator(data, validationRules);

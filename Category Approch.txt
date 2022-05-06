@@ -1,0 +1,17 @@
+Category Approch
+One approch
+Category
+id name         parent_id
+1  Technology   0
+2  Mobile       1
+3  Flutter      2
+4  React-native 2
+
+
+two approch
+category
+1  Technology   0
+
+sub-category
+id name     category_id
+1  Mobile      1
