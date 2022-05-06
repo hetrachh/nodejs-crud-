@@ -1,0 +1,39 @@
+Create APIs for below functionalities.
+
+1. User login/Register
+2. List Blogs
+3. Create blog
+4. Update blog
+5. Delete blog
+   Form fields
+6. User
+    Firstname
+    Lastname
+    Email
+    Password
+    DOB
+    Role (Admin / User)
+7. Blogs
+    Title
+    Description
+    publised_date
+    modify_date
+    status (Publish, Unpublish)
+    category (Follow category.avi video for how category will look like in frontend. Note you
+   have to only do backend api, the video is only for reference)
+    author
+   API specifications
+
+- Blog listing + Filter blogs by date, author, category + Pagination (Display blogs which are created
+  by the user. Admin can see all blogs)
+- Update blog (User can only update his blog) (Admin can update any blog)
+- Delete blog (User can only delete his blog) (Admin can delete any blog)
+- Use Express as a framework (use any framework if you are not familiar with express)
+- Use MySQL as a backend
+- Use Validations
+  Total time: 4 hours
+  Development notes:
+   You can use google for help purpose but do not copy paste whole code or logic from anywhere.
+   We will evaluate coding standards as well in the review.
+   Add project setup steps in Readme file
+   Create project from scratc
