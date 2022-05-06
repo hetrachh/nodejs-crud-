@@ -52,6 +52,7 @@ module.exports.login = async (req, res, next) => {
     const secret = process.env.secret;
     if (bcrypt.compareSync(data.password, userSave.password)) {
       //Token
+      //Improvment need to store token in db
       const token = jwt.sign(
         {
           userSave,

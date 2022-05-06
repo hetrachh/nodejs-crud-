@@ -13,5 +13,7 @@ category
 1  Technology   0
 
 sub-category
-id name     category_id
-1  Mobile      1
+id name           category_id parent_id
+1  Mobile           1          0
+2  React-native     1          0
+3  React-native-sub 2          0

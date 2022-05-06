@@ -18,7 +18,7 @@ module.exports.listItem = async (req, res, next) => {
           include: [
             {
               model: Model.Category,
-              as: "parent",
+              as: "category",
             },
           ],
         },
