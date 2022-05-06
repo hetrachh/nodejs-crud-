@@ -1,18 +1,22 @@
 const Model = require("../models/index");
+const Utility = require("../util/common");
 const Op = Model.Sequelize.Op;
 
 module.exports.listItem = async (req, res, next) => {
   try {
     //TODO: Pagination
     const { page, size, sortKey, sortBy } = req.query;
+    const { limit, offset } = await Utility.getPaginated(size, page);
     const blogs = await Model.Blogs.findAndCountAll({
       where: {
         is_deleted: 0,
       },
       order: [[sortKey ? sortKey : "id", sortBy ? sortBy : "DESC"]],
+      limit,
+      offset,
     });
-
-    return res.status(200).json({ data: blogs, message: "Blog List" });
+    const response = await Utility.pagination(blogs, page, limit);
+    return res.status(200).json({ data: response, message: "Blog List" });
   } catch (e) {
     return res.status(500).json({ message: e.message });
   }
